@@ -1,34 +1,47 @@
 <script>
-import axios from 'axios';
+import axios from "axios"
+
 
 export default {
   data: function () {
     return {
-      message: "Welcome to Vue.js!",
+      message: "Log a shipment",
     };
   },
-  created: function () {
-    this.indexWarehouses
-  },
+  created: function () { },
   methods: {
-    indexWarehouses() {
-      console.log("this is the index warehouse action")
-      axios.get("http://localhost:3000/warehouses.json").then(response => {
+    shipmentCreate() {
+      console.log("creating shipment")
+      var params = {
+        book_id: 1,
+        from_warehouse_id: 1,
+        to_warehouse_id: 2,
+        quantity: 0
+      }
+      axios.post("http://localhost:3000/shipments.json", params).then(response => {
         console.log(response.data)
       })
-    }
+        .catch((error) => {
+          console.log("shipment create error", error.response);
+          this.errors - error.response.data.errors;
+        });
+    },
   },
 };
 </script>
-    
-    <template>
+
+<template>
   <div class="home">
     <h1>{{ message }}</h1>
-  </div>
-  <div>
-    <button v-on:click="indexWarehouses()"> Index Action</button>
+    <!-- <form> -->
+    <!-- <label for="warehouses"> Choose a Warehouse</label>
+      <select id="warehouses" name="warehouses"> -->
+    <!-- <option value="Mond"> Mond Warehouse </option> -->
+    <!-- </select> -->
+    <button v-on:click="shipmentCreate()"> Submit </button>
+    <!-- </form> -->
   </div>
 </template>
-    
-    <style>
-    </style>
+
+<style>
+</style>
