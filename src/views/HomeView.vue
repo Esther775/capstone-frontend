@@ -1,34 +1,37 @@
 <script>
-import axios from "axios"
+import axios from "axios";
 
 
 export default {
+
   data: function () {
     return {
       message: "Log a shipment",
       newShipment: {},
-      shipments: []
+      shipments: [],
     };
   },
   created: function () { },
   methods: {
     shipmentCreate() {
       console.log("creating shipment")
-      // var params = {
-      //   book_id: 1,
-      //   from_warehouse_id: 1,
-      //   to_warehouse_id: 2,
-      //   quantity: 0
-      // }
+      console.log(this.newShipment.to_warehouse_id)
       axios.post("http://localhost:3000/shipments.json", this.newShipment).then(response => {
         console.log(response.data)
         this.shipments.push(response.data)
+        console.log("this is shipments array")
+        console.log(this.shipments)
       });
       // .catch((error) => {
       //   console.log("shipment create error", error.response);
-      //   this.errors - error.response.data.errors;
+      //   this.errors = error.response.data.errors;
       // });
     },
+    /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+    // function myFunction() {
+    //   document.getElementById("myDropdown").classList.toggle("show");
+    // }
   },
 };
 </script>
@@ -36,12 +39,38 @@ export default {
 <template>
   <div class="new-shipment">
     <h1>{{ message }}</h1>
+    <form>
+      <label for="shipment">To wareohouse</label>
+      <select v-model="newShipment.to_warehouse_id">
+        <option value="1">Mond</option>
+        <option value="2">Berman</option>
+        <option value="3">Israel (Lewin)</option>
+      </select>
 
-    <p> From Warehouse: <input type="text" v-model="newShipment.from_warehouse_id"> </p>
-    <p> To Warehouse: <input type="text" v-model="newShipment.to_warehouse_id"> </p>
-    <p> Book_id: <input type="text" v-model="newShipment.book_id"> </p>
-    <p> Quantity: <input type="text" v-model="newShipment.quantity"> </p>
-    <button v-on:click="shipmentCreate()"> Submit </button>
+      <br />
+      <label for="shipment">from Warehouse</label>
+      <select v-model="newShipment.from_warehouse_id">
+        <option value="1">Mond</option>
+        <option value="2">Berman</option>
+        <option value="3">Israel (Lewin)</option>
+      </select>
+      <br />
+
+      <label for="shipment">Quantity</label>
+      <input type="number" v-model="newShipment.quantity">
+      <br />
+
+      <label for="shipment">Book</label>
+      <select v-model="newShipment.book_id">
+        <option value="1">Golden Apples</option>
+        <option value="2">Time Peices</option>
+        <option value="3">Rays of Wisdom</option>
+      </select>
+      <br />
+
+      <input type="submit" value="Submit" v-on:click="shipmentCreate()">
+    </form>
+
 
   </div>
 </template>
