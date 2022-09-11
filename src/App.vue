@@ -4,6 +4,7 @@
     <router-link to="/about">About</router-link> |
     <router-link to="/warehouses">Warehouses</router-link> |
     <router-link to="/login">Login</router-link> |
+    <router-link to="/shipments">My Shipment Log</router-link>
   </nav>
   <router-view />
 </template>
