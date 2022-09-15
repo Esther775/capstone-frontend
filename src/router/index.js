@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import ShipmentsIndex from '../views/ShipmentsIndex.vue'
 import ShipmentsShow from '../views/ShipmentsShow.vue'
 import ShipmentsEdit from '../views/ShipmentsEdit.vue'
+import InventoryShow from '../views/InventoryShow.vue'
 
 const routes = [
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/shipments/:id',
     name: 'show',
     component: ShipmentsShow
+  },
+  {
+    path: '/inventory/:id',
+    name: 'show-inventory',
+    component: InventoryShow
   },
   {
     path: '/shipments/:id/edit',
@@ -37,14 +43,6 @@ const routes = [
     path: '/warehouses',
     name: 'warehouse',
     component: WarehouseIndex
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   }
 ]
 

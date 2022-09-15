@@ -6,7 +6,8 @@ export default {
     return {
       message: "Welcome to Vue.js!",
       shipments: [],
-      shipment: {}
+      shipment: {},
+      errors: []
     };
   },
   created: function () {
@@ -18,8 +19,15 @@ export default {
       axios.get("http://localhost:3000/shipments.json").then(response => {
         console.log(response.data)
         this.shipments = response.data
-      })
+        console.log(Date())
+      });
     },
+    filteredShipments() {
+      console.log("foilterinng")
+      return this.shipments.filter(function (shipment) {
+        return shipment.created_at === currentDate()
+      })
+    }
     // editShipment(shipment) {
     //   console.log("editing shipment...")
     //   console.log(this.shipment.id)

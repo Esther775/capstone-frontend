@@ -29,7 +29,8 @@ export default {
         // console.log(this.shipments)
       })
       // .catch((error) => {
-      //   this.errors = error.response.data.errors;
+      //   console.log(error.response)
+      //   // this.errors = error.response.data.errors;
       // })
     },
     /* When the user clicks on the button, 

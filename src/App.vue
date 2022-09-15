@@ -1,12 +1,34 @@
+<script>
+export default {
+  methods: {
+    getShipment() {
+      console.log("hello")
+      this.$router.push('/shipments')
+    }
+  }
+
+}
+</script>
 <template>
-  <nav>
+
+  <nav class="navbar bg-light">
+    <form class="container-fluid justify-content-start">
+      <button v-on:click=getShipment() class="btn btn-outline-success me-2" type="button">Log a
+        Shipment</button>
+      <button class="btn btn-sm btn-outline-secondary" type="button">Smaller button</button>
+    </form>
+  </nav>
+
+
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
     <router-link to="/warehouses">Warehouses</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/shipments">My Shipment Log</router-link>
-  </nav>
+    <router-link to="/shipments">My Shipment History</router-link>
+    <router-link to="/inventory/:id">Current Inventory</router-link>
+  </nav> -->
   <router-view />
+
 </template>
 
 <style>

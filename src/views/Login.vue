@@ -33,6 +33,7 @@ export default {
 
 <template>
   <div class="login">
+    {{errors}}
     <form v-on:submit.prevent="submit()">
       <h1>Login</h1>
       <ul>
