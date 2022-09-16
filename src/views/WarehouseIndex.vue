@@ -4,7 +4,7 @@ import axios from 'axios';
 export default {
   data: function () {
     return {
-      message: "Welcome to Index .js!",
+      message: "Check Inventory",
       warehouses: []
     };
   },
@@ -28,7 +28,7 @@ export default {
   <div class="home">
     <h1>{{ message }}</h1>
     <div v-for=" warehouse in warehouses" v-bind:key="warehouse.id">
-      {{ warehouse.name }}
+      <a v-bind:href="`/inventory/${warehouse.id}`">{{ warehouse.name }}</a>
     </div>
   </div>
 </template>

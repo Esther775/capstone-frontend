@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import axios from 'axios';
 
 export default {
@@ -14,7 +14,7 @@ export default {
   methods: {
     showShipment() {
       console.log("showing shipment")
-      axios.get("http://localhost:3000/shipments/86").then(response => {
+      axios.get("http://localhost:3000/shipments/", + this.$router.params.id).then(response => {
         console.log(response.data)
         this.shipment = response.data
       })
@@ -33,4 +33,4 @@ export default {
 
 <style>
 
-</style>
+</style> -->

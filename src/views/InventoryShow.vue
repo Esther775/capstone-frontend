@@ -1,18 +1,23 @@
+<script>
+import axios from 'axios';
 
-
-<!-- This page will eventually be the Warehouse Show Inventory page -->
-
-<!-- <script>
 export default {
   data: function () {
     return {
-      message: "Welcome to Vue.js!!!!",
+      message: "Inventory Page",
+      inventory: []
     };
   },
-  created: function () { },
+  created: function () {
+    this.getInventory();
+  },
   methods: {
     getInventory() {
-      console.log("gettin inventory")
+      console.log("get inventory")
+      axios.get("http://localhost:3000/inventory/" + this.$route.params.id).then(response => {
+        console.log(response.data)
+        this.inventory = response.data
+      })
     }
   },
 };
@@ -20,11 +25,26 @@ export default {
 
 <template>
   <div class="home">
-    <h1>{{ message }}</h1>
+
+    <!-- <div v-if="$route.params.id===1"> Mond</div> -->
+
+    <div v-for="details in inventory">
+
+      <div>
+        Book:
+        <div v-if="details.book_id===1">Golden Apples</div>
+        <div v-if="details.book_id===2">Time Peices</div>
+        <div v-if="details.book_id===3">Rays of Wisdom</div>
+      </div>
+      <div>
+        Current Inventory: {{details.current_inventory}}
+        <hr />
+      </div>
+
     </div>
   </div>
 </template>
 
 <style>
 
-</style> -->
+</style>
