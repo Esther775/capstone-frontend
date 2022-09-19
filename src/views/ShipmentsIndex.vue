@@ -19,15 +19,9 @@ export default {
       axios.get("http://localhost:3000/shipments.json").then(response => {
         console.log(response.data)
         this.shipments = response.data
-        console.log(Date())
       });
     },
-    filteredShipments() {
-      console.log("foilterinng")
-      return this.shipments.filter(function (shipment) {
-        return shipment.created_at === currentDate()
-      })
-    }
+
     // editShipment(shipment) {
     //   console.log("editing shipment...")
     //   console.log(this.shipment.id)
@@ -36,42 +30,66 @@ export default {
   },
 };
 </script>
+<!-- <div v-for="shipment in shipments">
+  Shipment Number: {{shipment.id}}
+  <div>
+    Book:
+    <div v-if="shipment.book_id===1">Golden Apples</div>
+    <div v-if="shipment.book_id===2">Time Peices</div>
+    <div v-if="shipment.book_id===3">Rays of Wisdom</div>
+  </div> -->
 
 <template>
-  <div class="home">
-    <h1>{{ message }}</h1>
 
-    <div v-for="shipment in shipments">
-      Shipment Number: {{shipment.id}}
-      <div>
-        Book:
-        <div v-if="shipment.book_id===1">Golden Apples</div>
-        <div v-if="shipment.book_id===2">Time Peices</div>
-        <div v-if="shipment.book_id===3">Rays of Wisdom</div>
+  <!-- Pricing section-->
+  <section class="bg-light py-5">
+    <div class="container px-5 my-5">
+      <div class="text-center mb-5">
+        <h1 class="fw-bolder">Recent Shipments</h1>
+        <!-- <p class="lead fw-normal text-muted mb-0">With our no hassle pricing plans</p> -->
       </div>
-      Sending To Warehouse:
-      <div>
-        <div v-if="shipment.to_warehouse_id==='1'">Mond</div>
-        <div v-if="shipment.to_warehouse_id==='2'">Berman</div>
-        <div v-if="shipment.to_warehouse_id==='3'">Israel</div>
-      </div>
-      <div>
-        From Warehouse:
-        <div v-if="shipment.from_warehouse_id==='1'">Mond</div>
-        <div v-if="shipment.from_warehouse_id==='2'">Berman</div>
-        <div v-if="shipment.from_warehouse_id==='3'">Israel</div>
-      </div>
-      <div>
-        quantity: {{shipment.quantity}}
-      </div>
-      <div>
-        <!-- Date: {{shipment.created_at}} -->
-      </div>
-      <a v-bind:href="`/shipments/${shipment.id}/edit`">Edit Shipment</a>
-      <hr />
+      <div class="row gx-5 justify-content-center">
 
+        <!-- Pricing card pro-->
+        <div class="col-lg-6 col-xl-4" v-for="shipment in shipments">
+          <div class="card mb-5 mb-xl-0">
+            <div class="card-body p-5">
+              <div class="mb-3">
+                <span class="text-muted">Shipment Number: {{shipment.id}}</span>
+              </div>
+              <ul class="list-unstyled mb-4">
+                <!-- <li class="mb-2"> -->
+                <strong></strong>
+                <br />
+                <div v-if="shipment.book_id===1">Book: Golden Apples</div>
+                <div v-if="shipment.book_id===2">Book: Time Peices</div>
+                <div v-if="shipment.book_id===3">Book: Rays of Wisdom</div>
+
+                <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
+                <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
+                <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div>
+                <!-- </li> -->
+                <div>
+                  <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>
+                  <div v-if="shipment.to_warehouse_id==='2'">To: Berman Warehouse</div>
+                  <div v-if="shipment.to_warehouse_id==='3'">To: Israel Printhouse</div>
+                </div>
+                <div>
+                  Quantity: {{shipment.quantity}}
+                </div>
+
+              </ul>
+              <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
+                  Shipment</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+
+
 </template>
 
 <style>
