@@ -9,7 +9,7 @@ export default {
     };
   },
   created: function () {
-    this.showShipment()
+    this.showShipment()cd 
   },
   methods: {
     showShipment() {

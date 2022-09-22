@@ -58,6 +58,15 @@ export default {
           <div class="col-lg-8 col-xl-6">
 
             <!-- <form> -->
+            <!-- Book input-->
+            <div class="form-floating mb-3">Book
+              <select v-model="newShipment.book_id" class="form-control">
+                <label for="shipment">Book</label>
+                <option value="1">Golden Apples</option>
+                <option value="2">Time Peices</option>
+                <option value="3">Rays of Wisdom</option>
+              </select>
+            </div>
             <!-- To Warehouse input-->
             <div class="form-floating mb-3" id="contactForm"> To Warehouse
               <select v-model="newShipment.to_warehouse_id" class="form-control">
@@ -80,15 +89,6 @@ export default {
             </div>
 
 
-            <!-- Book input-->
-            <div class="form-floating mb-3">Book
-              <select v-model="newShipment.book_id" class="form-control">
-                <label for="shipment">Book</label>
-                <option value="1">Golden Apples</option>
-                <option value="2">Time Peices</option>
-                <option value="3">Rays of Wisdom</option>
-              </select>
-            </div>
 
             <!-- Quantity Input: -->
             <div class="form-floating mb-3"> Quantity:

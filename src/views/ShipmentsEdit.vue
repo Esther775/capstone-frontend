@@ -97,7 +97,7 @@ export default {
 
             <!-- Submit Button-->
             <div class="d-grid"><button class="btn btn-primary btn-lg " type="submit" value="Submit"
-                v-on:click="shipmentCreate()">Submit</button></div>
+                v-on:click="editShipment()">Submit</button></div>
 
             <!-- </form> -->
           </div>
