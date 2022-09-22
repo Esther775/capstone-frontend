@@ -86,13 +86,12 @@ export default {
               <input class="form-control" type="number" v-model="shipment.quantity">
             </div>
 
-            <!-- Add Comment input-->
-            <!-- <div class="form-floating mb-3">
-              <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..."
-                style="height: 10rem" data-sb-validations="required"></textarea>
+            <!-- Comment Input -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control" type="text" v-model="shipment.comment"
+                placeholder="Enter your message here..." style="height: 10rem"></textarea>
               <label for="message">Message</label>
-              <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-            </div> -->
+            </div>
 
 
             <!-- Submit Button-->

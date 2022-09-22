@@ -6,11 +6,12 @@ export default {
 
   data: function () {
     return {
-      message: "Log a shipment",
+      message: "Create a Shipment",
       newShipment: {
         to_warehouse_id: 1,
         from_warehouse_id: 1,
-        quantity: 0, book_id: 1
+        quantity: 0, book_id: 1,
+        comment: ""
       },
       shipments: [],
       errors: []
@@ -51,7 +52,7 @@ export default {
       <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
         <div class="text-center mb-5">
           <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div> -->
-          <h1 class="fw-bolder">Log a Shipment</h1>
+          <h1 class="fw-bolder">Create a Shipment</h1>
           <!-- <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p> -->
         </div>
         <div class="row gx-5 justify-content-center">
@@ -94,6 +95,12 @@ export default {
             <div class="form-floating mb-3"> Quantity:
               <label for="shipment"></label>
               <input class="form-control" type="number" v-model="newShipment.quantity">
+            </div>
+            <!-- Comment Input: -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control" type="text" v-model="newShipment.comment"
+                placeholder="Enter your message here..." style="height: 10rem"></textarea>
+              <label for="message">Message</label>
             </div>
 
             <!-- Add Comment input-->
