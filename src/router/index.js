@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import ShipmentsIndex from '../views/ShipmentsIndex.vue'
 import ShipmentsShow from '../views/ShipmentsShow.vue'
 import ShipmentsEdit from '../views/ShipmentsEdit.vue'
+import ShipmentCreate from '../views/ShipmentCreate.vue'
 import InventoryShow from '../views/InventoryShow.vue'
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/shipment/new',
+    name: 'Shipment Create',
+    component: ShipmentCreate
   },
   {
     path: '/shipments/:id',
