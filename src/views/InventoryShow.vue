@@ -18,6 +18,14 @@ export default {
         console.log(response.data)
         this.inventory = response.data
       })
+    },
+    warehouseIndex() {
+      console.log("showing all warehouses");
+      axios.get("http://localhost:3000/warehouses.json").then(response => {
+        console.log(response.data)
+        this.warehouses = response.data
+
+      })
     }
   },
 };
@@ -27,7 +35,7 @@ export default {
   <div class="home">
 
     <!-- <div v-if="$route.params.id===1"> Mond</div> -->
-
+    <!-- {{inventory}} -->
     <div v-for="details in inventory">
 
       <div>

@@ -56,29 +56,25 @@ export default {
             <div class="card-body p-5">
               <div class="mb-3">
                 <span class="text-muted">Shipment Number: {{shipment.id}}</span>
+
               </div>
-              <ul class="list-unstyled mb-4">
-                <!-- <li class="mb-2"> -->
-                <strong></strong>
+              <br />
+              <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
+              <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
+              <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div>
+
+              <div>
+                <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>
+                <div v-if="shipment.to_warehouse_id==='2'">To: Berman Warehouse</div>
+                <div v-if="shipment.to_warehouse_id==='3'">To: Israel Printhouse</div>
+              </div>
+
+              <div v-for="books in shipment.book_shipment">
+                Book: {{books.book.title}}
                 <br />
-                <div v-if="shipment.book_id===1">Book: Golden Apples</div>
-                <div v-if="shipment.book_id===2">Book: Time Peices</div>
-                <div v-if="shipment.book_id===3">Book: Rays of Wisdom</div>
+                Quantity:{{books.quantity}}
+              </div>
 
-                <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
-                <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
-                <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div>
-                <!-- </li> -->
-                <div>
-                  <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>
-                  <div v-if="shipment.to_warehouse_id==='2'">To: Berman Warehouse</div>
-                  <div v-if="shipment.to_warehouse_id==='3'">To: Israel Printhouse</div>
-                </div>
-                <div>
-                  Quantity: {{shipment.quantity}}
-                </div>
-
-              </ul>
               <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
                   Shipment</a></div>
             </div>

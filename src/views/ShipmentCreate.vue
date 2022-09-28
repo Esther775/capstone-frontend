@@ -10,7 +10,10 @@ export default {
       newShipment: {
         to_warehouse_id: 1,
         from_warehouse_id: 1,
-        quantity: 0, book_id: 1,
+        quantity: 0,
+        books: [
+          { book_id: 3, quantity: 3 }
+        ],
         comment: ""
       },
       shipments: [],
@@ -21,11 +24,13 @@ export default {
   methods: {
     shipmentCreate() {
       console.log("creating shipment")
-      console.log(this.newShipment.to_warehouse_id)
+      console.log(this.newShipment)
+      console.log(this.newShipment.books.book_id)
+      console.log(this.newShipment.books.quantity)
       axios.post("http://localhost:3000/shipments.json", this.newShipment).then(response => {
         console.log(response.data)
         // this.shipments.push(response.data)
-        this.$router.push('/shipments')
+        // this.$router.push('/shipments')
         // console.log("this is shipments array")
         // console.log(this.shipments)
       })
@@ -34,6 +39,10 @@ export default {
           this.errors = error.response.data.error;
         })
     },
+    addBookToShipment() {
+      console.log("adding book")
+      this.newShipment.books.push({ book_id: 3, quantity: 3 })
+    }
     /* When the user clicks on the button, 
   toggle between hiding and showing the dropdown content */
     // function myFunction() {
@@ -59,15 +68,29 @@ export default {
           <div class="col-lg-8 col-xl-6">
 
             <!-- <form> -->
-            <!-- Book input-->
-            <div class="form-floating mb-3">Book
-              <select v-model="newShipment.book_id" class="form-control">
-                <label for="shipment">Book</label>
+            <!-- Book input -->
+            <div class="form-floating mb-3" v-for="book in newShipment.books">Book
+              {{book}}
+              <select v-model="book.book_id" class="form-control">
+                <label>Book</label>
                 <option value="1">Golden Apples</option>
                 <option value="2">Time Peices</option>
                 <option value="3">Rays of Wisdom</option>
               </select>
+              Quantity: <input class="form-control" type="number" v-model="book.quantity">
             </div>
+            <button v-on:click="addBookToShipment()">Add Another Book</button>
+
+            <!-- Quantity Input: -->
+            <!-- <div class="form-floating mb-3"> Quantity:
+              <label for="shipment"></label>
+              <input class="form-control" type="number" v-model="newShipment.books.quantity">
+            </div> -->
+
+            <!-- Add Another Book to Shipment -->
+
+
+
             <!-- To Warehouse input-->
             <div class="form-floating mb-3" id="contactForm"> To Warehouse
               <select v-model="newShipment.to_warehouse_id" class="form-control">
@@ -76,7 +99,6 @@ export default {
                 <option value="3">Israel (Lewin)</option>
                 <label for="shipment">To Warehouse:</label>
               </select>
-
             </div>
 
             <!-- From Warehouse input-->
@@ -91,11 +113,6 @@ export default {
 
 
 
-            <!-- Quantity Input: -->
-            <div class="form-floating mb-3"> Quantity:
-              <label for="shipment"></label>
-              <input class="form-control" type="number" v-model="newShipment.quantity">
-            </div>
             <!-- Comment Input: -->
             <div class="form-floating mb-3">
               <textarea class="form-control" type="text" v-model="newShipment.comment"

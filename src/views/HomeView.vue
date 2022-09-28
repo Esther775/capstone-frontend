@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 export default {
   data: function () {
     return {
@@ -18,4 +18,4 @@ export default {
 
 <style>
 
-</style>
+</style> -->
