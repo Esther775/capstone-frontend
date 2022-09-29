@@ -67,6 +67,7 @@ export default {
                 <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>
                 <div v-if="shipment.to_warehouse_id==='2'">To: Berman Warehouse</div>
                 <div v-if="shipment.to_warehouse_id==='3'">To: Israel Printhouse</div>
+                Comment: {{shipment.comment}}
               </div>
 
               <div v-for="books in shipment.book_shipment">
