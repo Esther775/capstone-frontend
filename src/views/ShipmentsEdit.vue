@@ -6,9 +6,15 @@ export default {
     return {
       message: "EDIT.js!",
       shipment: {
+        to_warehouse_id: 1,
+        from_warehouse_id: 1,
+        quantity: 0,
+        books: [
+          { book_id: 3, quantity: 3 },
+        ],
+        comment: ""
 
-      },
-      shipments: []
+      }
     };
   },
   created: function () {
@@ -17,18 +23,21 @@ export default {
   methods: {
     showShipment() {
       console.log("showing SHipment")
-      axios.get(`http://localhost:3000/shipments/${this.$route.params.id}`).then(response => {
+      axios.get(`http://localhost:3000/shipments/${this.$route.params.id}.json`).then(response => {
         console.log(response.data);
         this.shipment = response.data
       })
     },
     editShipment() {
       console.log("editting Shipments")
+      console.log(this.shipment.books)
+
       axios.patch(`http://localhost:3000/shipments/${this.shipment.id}`, this.shipment).then(response => {
         console.log(response.data)
         this.$router.push(`/shipments`)
       })
-    }
+    },
+
   },
 };
 </script>
@@ -49,13 +58,21 @@ export default {
 
             <!-- <form> -->
             <!-- Book input-->
-            <div class="form-floating mb-3">Book
-              <select v-model="shipment.book_id" class="form-control">
+            <div class="form-floating mb-3" v-for="book in shipment.books">
+              {{book}}
+              Book
+              <select v-model="book.book_id" class="form-control">
                 <label for="shipment">Book</label>
                 <option value="1">Golden Apples</option>
                 <option value="2">Time Peices</option>
                 <option value="3">Rays of Wisdom</option>
               </select>
+              <!-- Quantity Input: -->
+              <div class="form-floating mb-3"> Quantity:
+                <label for="shipment"></label>
+                <input class="form-control" type="number" v-model="book.quantity">
+              </div>
+
             </div>
             <!-- To Warehouse input-->
             <div class="form-floating mb-3" id="contactForm"> To Warehouse
@@ -78,13 +95,6 @@ export default {
               </select>
             </div>
 
-
-
-            <!-- Quantity Input: -->
-            <div class="form-floating mb-3"> Quantity:
-              <label for="shipment"></label>
-              <input class="form-control" type="number" v-model="shipment.quantity">
-            </div>
 
             <!-- Comment Input -->
             <div class="form-floating mb-3">
