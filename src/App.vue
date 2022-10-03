@@ -1,4 +1,20 @@
 
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: !!localStorage.jwt
+    }
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt
+    }
+  }
+}
+</script>
+
+
 <template>
 
   <main class="flex-shrink-0">
@@ -41,7 +57,10 @@
 
 
   </main>
-  <router-view />
+  <div class="container">
+    Am I logged in? {{ isLoggedIn }}
+    <router-view />
+  </div>
   <!-- Footer-->
   <footer class="bg-dark py-4 mt-auto">
     <div class="container px-5">
@@ -58,6 +77,9 @@
         </div> -->
       </div>
     </div>
+
+
+
   </footer>
 
 </template>

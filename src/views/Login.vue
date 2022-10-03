@@ -18,7 +18,7 @@ export default {
         .then((response) => {
           axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          this.$router.push("/");
+          this.$router.push("/shipment/new");
         })
         .catch((error) => {
           console.log(error.response);
@@ -52,34 +52,14 @@ export default {
                 <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
               </div>
 
-              <!-- Phone number input-->
+              <!-- Password input-->
               <div class="form-floating mb-3">
                 <input class="form-control" type="password" v-model="newSessionParams.password"
                   data-sb-validations="required" />
-                <label for="phone">Password</label>
+                <label for="password">Password</label>
                 <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
               </div>
 
-              <!-- Submit success message-->
-              <!---->
-              <!-- This is what your users will see when the form-->
-              <!-- has successfully submitted-->
-              <!-- <div class="d-none" id="submitSuccessMessage">
-                <div class="text-center mb-3">
-                  <div class="fw-bolder">Form submission successful!</div>
-                  To activate this form, sign up at
-                  <br />
-                  <a
-                    href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                </div>
-              </div> -->
-              <!-- Submit error message-->
-              <!---->
-              <!-- This is what your users will see when there is-->
-              <!-- an error submitting the form-->
-              <!-- <div class="d-none" id="submitErrorMessage">
-                <div class="text-center text-danger mb-3">Error sending message!</div>
-              </div> -->
               <!-- Submit Button-->
               <div class="d-grid"><button v-on:click="submit()" class="btn btn-primary btn-lg" type="submit"
                   value="Submit">Login</button></div>

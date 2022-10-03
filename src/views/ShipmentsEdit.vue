@@ -19,6 +19,7 @@ export default {
   },
   created: function () {
     this.showShipment()
+
   },
   methods: {
     showShipment() {
@@ -30,14 +31,29 @@ export default {
     },
     editShipment() {
       console.log("editting Shipments")
+      console.log("this.shipment.books")
       console.log(this.shipment.books)
+      console.log("this.shipment")
+      console.log(this.shipment)
 
       axios.patch(`http://localhost:3000/shipments/${this.shipment.id}`, this.shipment).then(response => {
         console.log(response.data)
         this.$router.push(`/shipments`)
       })
     },
+    addBookToShipment() {
+      console.log("adding book")
+      this.shipment.books.push({ book_id: 2, quantity: 0 })
+    },
 
+    removeBookFromShipment(book) {
+      console.log("book")
+      console.log(book)
+      console.log("shipment.books")
+      console.log(this.shipment.books)
+      var index = this.shipment.books.indexOf(book);
+      this.shipment.books.splice(index, 1)
+    },
   },
 };
 </script>
@@ -51,6 +67,7 @@ export default {
         <div class="text-center mb-5">
           <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div> -->
           <h1 class="fw">Editing Shipment #{{shipment.id}}</h1>
+          {{shipment}}
           <!-- <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p> -->
         </div>
         <div class="row gx-5 justify-content-center">
@@ -58,8 +75,7 @@ export default {
 
             <!-- <form> -->
             <!-- Book input-->
-            <div class="form-floating mb-3" v-for="book in shipment.books">
-              {{book}}
+            <div class="form-floating mb-3" v-for="book in shipment.books" v-bind="shipment.id">
               Book
               <select v-model="book.book_id" class="form-control">
                 <label for="shipment">Book</label>
@@ -72,8 +88,11 @@ export default {
                 <label for="shipment"></label>
                 <input class="form-control" type="number" v-model="book.quantity">
               </div>
-
+              <button v-on:click="removeBookFromShipment(book)">Remove Book</button>
             </div>
+            <button v-on:click="addBookToShipment()">Add A Book</button>
+
+
             <!-- To Warehouse input-->
             <div class="form-floating mb-3" id="contactForm"> To Warehouse
               <select v-model="shipment.to_warehouse_id" class="form-control">
@@ -106,7 +125,8 @@ export default {
 
             <!-- Submit Button-->
             <div class="d-grid"><button class="btn btn-primary btn-lg " type="submit" value="Submit"
-                v-on:click="editShipment()">Submit</button></div>
+                v-on:click="editShipment()">Save</button></div>
+
 
             <!-- </form> -->
           </div>

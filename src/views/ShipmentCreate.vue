@@ -17,22 +17,24 @@ export default {
         comment: ""
       },
       shipments: [],
-      errors: []
+      errors: [],
+      books: [],
+      warehouses: []
     };
   },
-  created: function () { },
+  created: function () {
+    this.getBooks()
+    this.getWarehouses()
+  },
   methods: {
     shipmentCreate() {
       console.log("creating shipment")
-      console.log(this.newShipment)
-      console.log(this.newShipment.books.book_id)
-      console.log(this.newShipment.books.quantity)
-      axios.post("http://localhost:3000/shipments.json", this.newShipment).then(response => {
+      axios.post("/shipments.json", this.newShipment).then(response => {
         console.log(response.data)
-        // this.shipments.push(response.data)
-        // this.$router.push('/shipments')
-        // console.log("this is shipments array")
-        // console.log(this.shipments)
+        this.shipments.push(response.data)
+        this.$router.push('/shipments')
+        console.log("this is shipments array")
+        console.log(this.shipments)
       })
         .catch((error) => {
           console.log(error.response)
@@ -41,74 +43,88 @@ export default {
     },
     addBookToShipment() {
       console.log("adding book")
-      this.newShipment.books.push({ book_id: 3, quantity: 3 })
+      this.newShipment.books.push({ book_id: 3, quantity: 0 })
+    },
+    removeBookFromShipment(book) {
+      console.log(" book")
+      console.log(book)
+      console.log("this.newShipment.book")
+      console.log(this.newShipment.books)
+      var index = this.newShipment.books.indexOf(book);
+      this.newShipment.books.splice(index, 1)
+      console.log(this.newShipment.books)
+    },
+    getBooks() {
+      console.log("getting books")
+      axios.get("/books.json").then(response => {
+        console.log(response.data)
+        this.books = response.data
+      })
+    },
+    getWarehouses() {
+      console.log("getting warehouses")
+      axios.get("/warehouses.json").then(response => {
+        console.log(response.data)
+        this.warehouses = response.data
+      })
     }
-    /* When the user clicks on the button, 
-  toggle between hiding and showing the dropdown content */
-    // function myFunction() {
-    //   document.getElementById("myDropdown").classList.toggle("show");
-    // }
   },
-};
+  /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+  // function myFunction() {
+  //   document.getElementById("myDropdown").classList.toggle("show");
+  // }
+}
 </script>
-  
+    
 <template>
   <!-- {{errors}} -->
   <!-- Page content-->
   <section class="py-5">
     <div class="container px-5">
-      <!-- Contact form-->
+      <!-- Create Shipment form-->
       <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
         <div class="text-center mb-5">
-          <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div> -->
           <h1 class="fw-bolder">Create a Shipment</h1>
-          <!-- <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p> -->
         </div>
         <div class="row gx-5 justify-content-center">
           <div class="col-lg-8 col-xl-6">
 
             <!-- <form> -->
+
             <!-- Book input -->
-            <div class="form-floating mb-3" v-for="book in newShipment.books">Book
-              {{book}}
-              <select v-model="book.book_id" class="form-control">
-                <label>Book</label>
-                <option value="1">Golden Apples</option>
-                <option value="2">Time Peices</option>
-                <option value="3">Rays of Wisdom</option>
-              </select>
-              Quantity: <input class="form-control" type="number" v-model="book.quantity">
-            </div>
-            <button v-on:click="addBookToShipment()">Add Another Book</button>
+            <div class="form-floating mb-3" v-for="book in newShipment.books" id="contactForm">
+              <div class="a"> Book
 
-            <!-- Quantity Input: -->
-            <!-- <div class="form-floating mb-3"> Quantity:
-              <label for="shipment"></label>
-              <input class="form-control" type="number" v-model="newShipment.books.quantity">
-            </div> -->
+                <select v-model="book.book_id" class="form-control">
+                  <option disabled value="">Please select one</option>
+                  <option v-for="book in books" :value="book.id">{{book.title}}</option>
+                </select>
 
-            <!-- Add Another Book to Shipment -->
+                <!-- Quantity input -->
+                Quantity: <input class="form-control" type="number" v-model="book.quantity">
+                <button class="btn btn-outline-danger" v-on:click="removeBookFromShipment(book)">Remove Book</button>
+              </div>
+              <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add Another Book</button>
 
 
 
-            <!-- To Warehouse input-->
-            <div class="form-floating mb-3" id="contactForm"> To Warehouse
-              <select v-model="newShipment.to_warehouse_id" class="form-control">
-                <option value="1">Mond</option>
-                <option value="2">Berman</option>
-                <option value="3">Israel (Lewin)</option>
-                <label for="shipment">To Warehouse:</label>
-              </select>
-            </div>
 
-            <!-- From Warehouse input-->
-            <div class="form-floating mb-3"> From Warhouse
-              <select v-model="newShipment.from_warehouse_id" class="form-control">
-                <label for="shipment">from Warehouse</label>
-                <option value="1">Mond</option>
-                <option value="2">Berman</option>
-                <option value="3">Israel (Lewin)</option>
-              </select>
+              <!-- To Warehouse input-->
+              <div class="form-floating mb-3" id="contactForm"> To
+                Warehouse
+                <select v-model="newShipment.to_warehouse_id" class="form-control">
+                  <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>
+                </select>
+              </div>
+
+              <!-- From Warehouse input-->
+              <div class="form-floating mb-3"> From Warhouse
+                <select v-model="newShipment.from_warehouse_id" class="form-control">
+                  <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}
+                  </option>
+                </select>
+              </div>
             </div>
 
 
@@ -120,18 +136,10 @@ export default {
               <label for="message">Message</label>
             </div>
 
-            <!-- Add Comment input-->
-            <!-- <div class="form-floating mb-3">
-                <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..."
-                  style="height: 10rem" data-sb-validations="required"></textarea>
-                <label for="message">Message</label>
-                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-              </div> -->
-
 
             <!-- Submit Button-->
             <div class="d-grid"><button class="btn btn-primary btn-lg " type="submit" value="Submit"
-                v-on:click="shipmentCreate()">Submit</button></div>
+                v-on:click="shipmentCreate()">Submit Shipment</button></div>
 
             <!-- </form> -->
           </div>
@@ -142,7 +150,9 @@ export default {
 
 
 </template>
-  
+    
 <style>
-
+div.a {
+  text-align: left;
+}
 </style>

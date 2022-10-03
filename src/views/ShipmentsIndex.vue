@@ -21,7 +21,15 @@ export default {
         this.shipments = response.data
       });
     },
+    deleteShipment(shipment) {
+      console.log("deleting shipment")
+      console.log(shipment.id)
+      axios.delete(`http://localhost:3000/shipments/${shipment.id}.json`).then(response => {
+        console.log(response.data)
+        this.$router.go()
 
+      })
+    }
     // editShipment(shipment) {
     //   console.log("editing shipment...")
     //   console.log(this.shipment.id)
@@ -78,6 +86,13 @@ export default {
 
               <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
                   Shipment</a></div>
+
+              <div class="d-grid"><a class="btn btn-outline-primary" v-on:click="deleteShipment(shipment)">Delete
+                  Shipment</a>
+              </div>
+
+
+
             </div>
           </div>
         </div>

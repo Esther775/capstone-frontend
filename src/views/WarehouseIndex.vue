@@ -25,14 +25,22 @@ export default {
 </script>
 
 <template>
-  <div class="home">
+  <div class="home" id="wrapper">
     <h1>{{ message }}</h1>
-    <div v-for=" warehouse in warehouses" v-bind:key="warehouse.id">
-      <a v-bind:href="`/inventory/${warehouse.id}`">{{ warehouse.name }}</a>
+    <div class="btn" v-for=" warehouse in warehouses" v-bind:key="warehouse.id">
+      <a class="btn btn-outline-primary" v-bind:href="`/inventory/${warehouse.id}`">{{ warehouse.name }} </a>
+
+
+
+
+
     </div>
   </div>
 </template>
 
 <style>
-
+#wrapper {
+  width: 500px;
+  margin: 0 auto;
+}
 </style>
