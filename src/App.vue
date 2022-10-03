@@ -58,7 +58,6 @@ export default {
 
   </main>
   <div class="container">
-    Am I logged in? {{ isLoggedIn }}
     <router-view />
   </div>
   <!-- Footer-->

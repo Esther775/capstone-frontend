@@ -105,7 +105,7 @@ export default {
 
 
             <!-- To Warehouse input-->
-            <div class="form-floating mb-3" id="contactForm">{{shipment}}
+            <div class="form-floating mb-3" id="contactForm">
               <br /> To Warehouse
               <select v-model="shipment.to_warehouse_id" class="form-control">
                 <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>

@@ -7,11 +7,15 @@ export default {
       message: "Welcome to Vue.js!",
       shipments: [],
       shipment: {},
-      errors: []
+      errors: [],
+      books: [],
+      warehouses: []
     };
   },
   created: function () {
     this.getShipments()
+    this.getBooks()
+    this.getWarehouses()
   },
   methods: {
 
@@ -29,23 +33,24 @@ export default {
         this.$router.go()
 
       })
+    },
+    getBooks() {
+      console.log("getting books")
+      axios.get("/books.json").then(response => {
+        console.log(response.data)
+        this.books = response.data
+      })
+    },
+    getWarehouses() {
+      console.log("getting warehouses")
+      axios.get("/warehouses.json").then(response => {
+        console.log(response.data)
+        this.warehouses = response.data
+      })
     }
-    // editShipment(shipment) {
-    //   console.log("editing shipment...")
-    //   console.log(this.shipment.id)
-    // this.$router.push(`/shipments/${this.shipment.id}/edit`)
-    // }
   },
 };
 </script>
-<!-- <div v-for="shipment in shipments">
-  Shipment Number: {{shipment.id}}
-  <div>
-    Book:
-    <div v-if="shipment.book_id===1">Golden Apples</div>
-    <div v-if="shipment.book_id===2">Time Peices</div>
-    <div v-if="shipment.book_id===3">Rays of Wisdom</div>
-  </div> -->
 
 <template>
 
@@ -54,7 +59,6 @@ export default {
     <div class="container px-5 my-5">
       <div class="text-center mb-5">
         <h1 class="fw-bolder">Recent Shipments</h1>
-        <!-- <p class="lead fw-normal text-muted mb-0">With our no hassle pricing plans</p> -->
       </div>
       <div class="row gx-5 justify-content-center">
 
@@ -66,10 +70,15 @@ export default {
                 <span class="text-muted">Shipment Number: {{shipment.id}}</span>
 
               </div>
-              <br />
-              <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
-              <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
-              <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div>
+              From Warehouse:
+              <template v-for="warehouse in warehouses">
+                <div v-if="warehouse.id === shipment.from_warehouse_id"> {{warehouse.name}}</div>
+              </template>
+
+              <!-- <br />
+                <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
+                <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
+                <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div> -->
 
               <div>
                 <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>

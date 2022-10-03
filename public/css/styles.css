@@ -3626,14 +3626,14 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-  color: #0d6efd;
-  border-color: #0d6efd;
+  color: #548A9C;
+  border-color: #548A9C;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+  background-color: #548A9C;
+  border-color: #548A9C;
 }
 
 .btn-check:focus+.btn-outline-primary,
