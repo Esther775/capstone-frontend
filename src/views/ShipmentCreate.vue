@@ -17,7 +17,7 @@ export default {
         comment: ""
       },
       shipments: [],
-      errors: [],
+      errors: "",
       books: [],
       warehouses: []
     };
@@ -38,7 +38,7 @@ export default {
       })
         .catch((error) => {
           console.log(error.response)
-          this.errors = error.response.data.error;
+          this.errors = error.response.data.message;
         })
     },
     addBookToShipment() {
@@ -78,7 +78,7 @@ toggle between hiding and showing the dropdown content */
 </script>
     
 <template>
-  <!-- {{errors}} -->
+  {{errors}}
   <!-- Page content-->
   <section class="py-5">
     <div class="container px-5">
@@ -94,37 +94,38 @@ toggle between hiding and showing the dropdown content */
 
             <!-- Book input -->
             <div class="form-floating mb-3" v-for="book in newShipment.books" id="contactForm">
-              <div class="a"> Book
+              Book
+              <select v-model="book.book_id" class="form-control">
+                <option disabled value="">Please select one</option>
+                <option v-for="book in books" :value="book.id">{{book.title}}</option>
+              </select>
 
-                <select v-model="book.book_id" class="form-control">
-                  <option disabled value="">Please select one</option>
-                  <option v-for="book in books" :value="book.id">{{book.title}}</option>
-                </select>
-
-                <!-- Quantity input -->
-                Quantity: <input class="form-control" type="number" v-model="book.quantity">
-                <button class="btn btn-outline-danger" v-on:click="removeBookFromShipment(book)">Remove Book</button>
+              <!-- Quantity input -->
+              <div class="form-floating mb-3">
+                Quantity:
+                <input class="form-control" type="number" v-model="book.quantity">
               </div>
-              <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add Another Book</button>
+              <button class="btn btn-outline-danger" v-on:click="removeBookFromShipment(book)">Remove Book</button>
+            </div>
+            <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add Another Book</button>
 
 
 
 
-              <!-- To Warehouse input-->
-              <div class="form-floating mb-3" id="contactForm"> To
-                Warehouse
-                <select v-model="newShipment.to_warehouse_id" class="form-control">
-                  <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>
-                </select>
-              </div>
+            <!-- To Warehouse input-->
+            <div class="form-floating mb-3" id="contactForm"> To
+              Warehouse
+              <select v-model="newShipment.to_warehouse_id" class="form-control">
+                <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>
+              </select>
+            </div>
 
-              <!-- From Warehouse input-->
-              <div class="form-floating mb-3"> From Warhouse
-                <select v-model="newShipment.from_warehouse_id" class="form-control">
-                  <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}
-                  </option>
-                </select>
-              </div>
+            <!-- From Warehouse input-->
+            <div class="form-floating mb-3"> From Warhouse
+              <select v-model="newShipment.from_warehouse_id" class="form-control">
+                <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}
+                </option>
+              </select>
             </div>
 
 

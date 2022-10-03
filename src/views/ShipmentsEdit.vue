@@ -12,13 +12,16 @@ export default {
         books: [
           { book_id: 3, quantity: 3 },
         ],
-        comment: ""
-
-      }
+        comment: "",
+      },
+      books: [],
+      warehouses: []
     };
   },
   created: function () {
     this.showShipment()
+    this.getBooks()
+    this.getWarehouses()
 
   },
   methods: {
@@ -31,11 +34,7 @@ export default {
     },
     editShipment() {
       console.log("editting Shipments")
-      console.log("this.shipment.books")
-      console.log(this.shipment.books)
-      console.log("this.shipment")
       console.log(this.shipment)
-
       axios.patch(`http://localhost:3000/shipments/${this.shipment.id}`, this.shipment).then(response => {
         console.log(response.data)
         this.$router.push(`/shipments`)
@@ -54,6 +53,20 @@ export default {
       var index = this.shipment.books.indexOf(book);
       this.shipment.books.splice(index, 1)
     },
+    getBooks() {
+      console.log("getting books")
+      axios.get("/books.json").then(response => {
+        console.log(response.data)
+        this.books = response.data
+      })
+    },
+    getWarehouses() {
+      console.log("getting warehouses")
+      axios.get("/warehouses.json").then(response => {
+        console.log(response.data)
+        this.warehouses = response.data
+      })
+    },
   },
 };
 </script>
@@ -65,41 +78,37 @@ export default {
       <!-- Contact form-->
       <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
         <div class="text-center mb-5">
-          <!-- <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div> -->
           <h1 class="fw">Editing Shipment #{{shipment.id}}</h1>
-          {{shipment}}
-          <!-- <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p> -->
         </div>
         <div class="row gx-5 justify-content-center">
           <div class="col-lg-8 col-xl-6">
 
             <!-- <form> -->
+
             <!-- Book input-->
             <div class="form-floating mb-3" v-for="book in shipment.books" v-bind="shipment.id">
               Book
               <select v-model="book.book_id" class="form-control">
-                <label for="shipment">Book</label>
-                <option value="1">Golden Apples</option>
-                <option value="2">Time Peices</option>
-                <option value="3">Rays of Wisdom</option>
+                <option disabled value="">Please select one</option>
+                <option v-for="book in books" :value="book.id">{{book.title}}</option>
               </select>
+
               <!-- Quantity Input: -->
               <div class="form-floating mb-3"> Quantity:
-                <label for="shipment"></label>
                 <input class="form-control" type="number" v-model="book.quantity">
               </div>
-              <button v-on:click="removeBookFromShipment(book)">Remove Book</button>
+              <button class="btn btn-outline-danger" v-on:click="removeBookFromShipment(book)">Remove Book</button>
             </div>
-            <button v-on:click="addBookToShipment()">Add A Book</button>
+            <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add A Book</button>
+
+
 
 
             <!-- To Warehouse input-->
-            <div class="form-floating mb-3" id="contactForm"> To Warehouse
+            <div class="form-floating mb-3" id="contactForm">{{shipment}}
+              <br /> To Warehouse
               <select v-model="shipment.to_warehouse_id" class="form-control">
-                <option value="1">Mond</option>
-                <option value="2">Berman</option>
-                <option value="3">Israel (Lewin)</option>
-                <label for="shipment">To Warehouse:</label>
+                <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>
               </select>
 
             </div>
@@ -107,10 +116,8 @@ export default {
             <!-- From Warehouse input-->
             <div class="form-floating mb-3"> From Warhouse
               <select v-model="shipment.from_warehouse_id" class="form-control">
-                <label for="shipment">from Warehouse</label>
-                <option value="1">Mond</option>
-                <option value="2">Berman</option>
-                <option value="3">Israel (Lewin)</option>
+                <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}
+                </option>
               </select>
             </div>
 
