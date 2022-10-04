@@ -94,7 +94,10 @@ export default {
                 <br />
               </div>
 
-              <b><u>Comment:</u></b> {{shipment.comment}}
+              <b><u>Comment:</u></b>
+              <br />
+              {{shipment.comment}}
+
               <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
                   Shipment</a></div>
 

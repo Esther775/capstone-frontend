@@ -38,7 +38,7 @@ export default {
   <div class="container">
     <br />
     <br />
-    Inventory at: {{warehouse.name}}
+    <h3> Inventory at: <u> {{warehouse.name}}</u></h3>
     <br />
     <br />
     <br />

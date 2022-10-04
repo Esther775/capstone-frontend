@@ -29,11 +29,15 @@ export default {
 
 <template>
   <div class="home" id="wrapper">
+    <br />
+    <br />
     <h1>{{ message }}</h1>
+    <br />
+    <br />
     <div class="btn" v-for=" warehouse in warehouses" v-bind:key="warehouse.id">
       <a class="btn btn-outline-primary" v-bind:href="`/inventory/${warehouse.id}`">{{ warehouse.name }} </a>
     </div>
-    <!-- <a class="btn btn-outline-primary" v-on:click="allInventory()"> All Inventory </a> -->
+    <a class="btn btn-outline-primary" v-on:click="allInventory()"> All Inventory </a>
 
 
 
