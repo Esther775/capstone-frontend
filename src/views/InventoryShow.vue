@@ -1,4 +1,62 @@
-<script >
+<script>
+import axios from 'axios';
+
+export default {
+  data: function () {
+    return {
+      message: "Inventory Page",
+      inventory: []
+    };
+  },
+  created: function () {
+    this.getInventory();
+  },
+  methods: {
+    getInventory() {
+      console.log("get inventory")
+      axios.get("http://localhost:3000/inventory/" + this.$route.params.id).then(response => {
+        console.log(response.data)
+        this.inventory = response.data
+      })
+    },
+    warehouseIndex() {
+      console.log("showing all warehouses");
+      axios.get("http://localhost:3000/warehouses.json").then(response => {
+        console.log(response.data)
+        this.warehouses = response.data
+
+      })
+    }
+  },
+};
+</script>
+  
+<template>
+  <div class="home">
+
+    <!-- <div v-if="$route.params.id===1"> Mond</div> -->
+    <!-- {{inventory}} -->
+    <div v-for="details in inventory">
+
+      <div>
+        Book:
+        <div v-if="details.book_id===1">Golden Apples</div>
+        <div v-if="details.book_id===2">Time Peices</div>
+        <div v-if="details.book_id===3">Rays of Wisdom</div>
+      </div>
+      <div>
+        Current Inventory: {{details.current_inventory}}
+        <hr />
+      </div>
+
+    </div>
+  </div>
+</template>
+  
+<style>
+
+</style>
+  <!-- <script >
 
 import axios from 'axios';
 
@@ -8,29 +66,7 @@ export default {
       message: "Inventory Page",
       inventory: [],
       books: [],
-      fields: [
-        {
-          key: 'last_name',
-          sortable: true
-        },
-        {
-          key: 'first_name',
-          sortable: false
-        },
-        {
-          key: 'age',
-          label: 'Person age',
-          sortable: true,
-          // Variant applies to the whole column, including the header and footer
-          variant: 'danger'
-        }
-      ],
-      items: [
-        { isActive: true, age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-      ]
+
     };
   },
   created: function () {
@@ -71,9 +107,6 @@ export default {
 
   <div class="container">
 
-    <div>
-      <b-table striped hover :items="items" :fields="fields"></b-table>
-    </div>
 
     <table class="table table-sm table-hover">
       <thead>
@@ -109,4 +142,4 @@ div {
   padding-left: 10px;
   padding-right: 10px;
 }
-</style>
+</style> -->
