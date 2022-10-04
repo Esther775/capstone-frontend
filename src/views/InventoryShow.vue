@@ -5,11 +5,13 @@ export default {
   data: function () {
     return {
       message: "Inventory Page",
-      inventory: []
+      inventory: [],
+      warehouse: {}
     };
   },
   created: function () {
     this.getInventory();
+    this.warehouseIndex()
   },
   methods: {
     getInventory() {
@@ -21,9 +23,9 @@ export default {
     },
     warehouseIndex() {
       console.log("showing all warehouses");
-      axios.get("http://localhost:3000/warehouses.json").then(response => {
+      axios.get("http://localhost:3000/warehouses/" + this.$route.params.id).then(response => {
         console.log(response.data)
-        this.warehouses = response.data
+        this.warehouse = response.data
 
       })
     }
@@ -31,115 +33,44 @@ export default {
 };
 </script>
   
-<template>
-  <div class="home">
-
-    <!-- <div v-if="$route.params.id===1"> Mond</div> -->
-    <!-- {{inventory}} -->
-    <div v-for="details in inventory">
-
-      <div>
-        Book:
-        <div v-if="details.book_id===1">Golden Apples</div>
-        <div v-if="details.book_id===2">Time Peices</div>
-        <div v-if="details.book_id===3">Rays of Wisdom</div>
-      </div>
-      <div>
-        Current Inventory: {{details.current_inventory}}
-        <hr />
-      </div>
-
-    </div>
-  </div>
-</template>
-  
-<style>
-
-</style>
-  <!-- <script >
-
-import axios from 'axios';
-
-export default {
-  data: function () {
-    return {
-      message: "Inventory Page",
-      inventory: [],
-      books: [],
-
-    };
-  },
-  created: function () {
-    this.getInventory();
-    this.getBooks()
-  },
-  methods: {
-    getInventory() {
-      console.log("get inventory")
-      axios.get("http://localhost:3000/inventory.json").then(response => {
-        console.log(response.data)
-        this.inventory = response.data
-      })
-    },
-    warehouseIndex() {
-      console.log("showing all warehouses");
-      axios.get("http://localhost:3000/warehouses.json").then(response => {
-        console.log(response.data)
-        this.warehouses = response.data
-
-      })
-    },
-    getBooks() {
-      console.log("getting books")
-      axios.get("http://localhost:3000/books.json").then(response => {
-        console.log(response.data)
-        this.books = response.data
-      })
-    }
-
-  },
-};
-</script>
-
-
-
 <template>
 
   <div class="container">
+    <br />
+    <br />
+    Inventory at: {{warehouse.name}}
+    <br />
+    <br />
+    <br />
 
-
-    <table class="table table-sm table-hover">
-      <thead>
+    <table style="width:40%" class="center table">
+      <thead class="thead-light">
         <tr>
-          <th scope="col">Book Title</th>
-          <th scope="col">Warehouse</th>
-          <th scope="col">Inventory</th>
+          <th>Book</th>
+          <th>Current Inventory</th>
         </tr>
       </thead>
-      <tbody>
-
-        <tr v-for="details in inventory">
-          <th scope="row">{{details.title.title}}</th>
-
-          <td>{{details.warehouse.name}}</td>
+      <tbody v-for="details in inventory">
+        <tr>
+          <th>
+            <div v-if="details.book_id===1">Golden Apples</div>
+            <div v-if="details.book_id===2">Time Peices</div>
+            <div v-if="details.book_id===3">Rays of Wisdom</div>
+          </th>
           <td>{{details.current_inventory}}</td>
+
         </tr>
 
       </tbody>
     </table>
 
+
   </div>
 </template>
+  
 <style>
-div {
-  text-align: center;
-}
-
-.container {
-  max-width: 1000px;
+table.center {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
 }
-</style> -->
+</style>

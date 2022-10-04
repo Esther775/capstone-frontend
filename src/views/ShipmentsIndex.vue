@@ -68,31 +68,33 @@ export default {
             <div class="card-body p-5">
               <div class="mb-3">
                 <span class="text-muted">Shipment Number: {{shipment.id}}</span>
-
               </div>
-              From Warehouse:
+              <!-- From Warehouse:
               <template v-for="warehouse in warehouses">
                 <div v-if="warehouse.id === shipment.from_warehouse_id"> {{warehouse.name}}</div>
-              </template>
+              </template> -->
 
-              <!-- <br />
-                <div v-if="shipment.from_warehouse_id==='1'"> From: Mond Warehouse</div>
-                <div v-if="shipment.from_warehouse_id==='2'">From: Berman Warehouse</div>
-                <div v-if="shipment.from_warehouse_id==='3'">From: Israel Printhouse</div> -->
+              <div v-if="shipment.from_warehouse_id==='1'"> <b><u>From:</u></b>Mond Warehouse</div>
+              <div v-if="shipment.from_warehouse_id==='2'"><b><u>From:</u></b>Berman Warehouse</div>
+              <div v-if="shipment.from_warehouse_id==='3'"><b><u>From:</u></b>Israel Printhouse</div>
 
+              <br />
               <div>
-                <div v-if="shipment.to_warehouse_id==='1'">To: Mond Warehouse</div>
-                <div v-if="shipment.to_warehouse_id==='2'">To: Berman Warehouse</div>
-                <div v-if="shipment.to_warehouse_id==='3'">To: Israel Printhouse</div>
-                Comment: {{shipment.comment}}
+                <div v-if="shipment.to_warehouse_id==='1'"><b><u>To:</u></b> Mond Warehouse</div>
+                <div v-if="shipment.to_warehouse_id==='2'"><b><u>To:</u></b> Berman Warehouse</div>
+                <div v-if="shipment.to_warehouse_id==='3'"><b><u>To:</u></b> Israel Printhouse</div>
               </div>
 
+              <br />
               <div v-for="books in shipment.book_shipment">
-                Book: {{books.book.title}}
+                <b><u>Book:</u></b> {{books.book.title}}
                 <br />
-                Quantity:{{books.quantity}}
+                <b><u>Quantity:</u></b>{{books.quantity}}
+                <br />
+                <br />
               </div>
 
+              <b><u>Comment:</u></b> {{shipment.comment}}
               <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
                   Shipment</a></div>
 

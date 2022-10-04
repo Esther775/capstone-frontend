@@ -19,6 +19,9 @@ export default {
         this.warehouses = response.data
 
       })
+    },
+    allInventory() {
+      this.$router.push("/inventory")
     }
   },
 };
@@ -29,12 +32,12 @@ export default {
     <h1>{{ message }}</h1>
     <div class="btn" v-for=" warehouse in warehouses" v-bind:key="warehouse.id">
       <a class="btn btn-outline-primary" v-bind:href="`/inventory/${warehouse.id}`">{{ warehouse.name }} </a>
-
-
-
-
-
     </div>
+    <!-- <a class="btn btn-outline-primary" v-on:click="allInventory()"> All Inventory </a> -->
+
+
+
+
   </div>
 </template>
 
