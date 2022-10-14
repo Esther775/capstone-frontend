@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import WarehouseIndex from '../views/WarehouseIndex.vue'
-import Login from '../views/Login.vue'
 import ShipmentsIndex from '../views/ShipmentsIndex.vue'
 import ShipmentsShow from '../views/ShipmentsShow.vue'
 import ShipmentsEdit from '../views/ShipmentsEdit.vue'
@@ -47,11 +46,6 @@ const routes = [
     path: '/shipments',
     name: 'shipments',
     component: ShipmentsIndex
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login
   },
   {
     path: '/warehouses',

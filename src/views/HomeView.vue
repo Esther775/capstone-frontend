@@ -18,7 +18,7 @@ export default {
         .then((response) => {
           axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
           localStorage.setItem("jwt", response.data.jwt);
-          this.$router.push("/shipment/new");
+          this.$router.push("/inventory");
         })
         .catch((error) => {
           console.log(error.response);
@@ -30,7 +30,7 @@ export default {
   },
 };
 </script>
-  
+
 <template>
   <section class="py-5">
     <div class="container px-5">
