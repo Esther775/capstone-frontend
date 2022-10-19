@@ -94,16 +94,17 @@ toggle between hiding and showing the dropdown content */
 
             <!-- Book input -->
             <div class="form-floating mb-3" v-for="book in newShipment.books" id="contactForm">
-              Book
               <select v-model="book.book_id" class="form-control">
                 <option disabled value="">Please select one</option>
                 <option v-for="book in books" :value="book.id">{{book.title}}</option>
               </select>
+              <label>Book Title</label>
+              <br />
 
               <!-- Quantity input -->
               <div class="form-floating mb-3">
-                Quantity:
                 <input class="form-control" type="number" v-model="book.quantity">
+                <label>Quantity</label>
               </div>
 
               <!-- Add/Remove Books -->
@@ -112,22 +113,23 @@ toggle between hiding and showing the dropdown content */
             <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add Another Book</button>
 
 
-
-
             <!-- To Warehouse input-->
-            <div class="form-floating mb-3" id="contactForm"> To
-              Warehouse
+
+            <div class="form-floating mb-3" id="contactForm">
               <select v-model="newShipment.to_warehouse_id" class="form-control">
                 <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}</option>
               </select>
+              <label>Where are you shipping the books TO?</label>
             </div>
 
             <!-- From Warehouse input-->
-            <div class="form-floating mb-3"> From Warhouse
+            <div class="form-floating mb-3">
               <select v-model="newShipment.from_warehouse_id" class="form-control">
                 <option v-for="warehouse in warehouses" :value="warehouse.id">{{warehouse.name}}
                 </option>
               </select>
+              <label>Where are you shipping the books FROM?</label>
+
             </div>
 
 
