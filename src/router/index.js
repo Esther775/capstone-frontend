@@ -7,6 +7,7 @@ import ShipmentsEdit from '../views/ShipmentsEdit.vue'
 import ShipmentCreate from '../views/ShipmentCreate.vue'
 import InventoryShow from '../views/InventoryShow.vue'
 import InventoryIndex from '../views/InventoryIndex.vue'
+import PrintCreate from '../views/PrintCreate.vue'
 
 
 const routes = [
@@ -51,6 +52,11 @@ const routes = [
     path: '/warehouses',
     name: 'warehouse',
     component: WarehouseIndex
+  },
+  {
+    path: '/print/new',
+    name: 'Print Create',
+    component: PrintCreate
   }
 ]
 

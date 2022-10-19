@@ -105,6 +105,8 @@ toggle between hiding and showing the dropdown content */
                 Quantity:
                 <input class="form-control" type="number" v-model="book.quantity">
               </div>
+
+              <!-- Add/Remove Books -->
               <button class="btn btn-outline-danger" v-on:click="removeBookFromShipment(book)">Remove Book</button>
             </div>
             <button class="btn btn-outline-primary" v-on:click="addBookToShipment()">Add Another Book</button>
