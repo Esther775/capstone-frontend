@@ -12,7 +12,8 @@ export default {
         warehouse_id: 3
       },
       books: [],
-      warehouses: []
+      warehouses: [],
+      // prints: []
     };
   },
   created: function () {
@@ -23,7 +24,11 @@ export default {
   methods: {
     print() {
       console.log("creating shipment")
-      console.log(this.newPrint)
+      // console.log(this.newPrint)
+      axios.post("/prints.json", this.newPrint).then(response => {
+        console.log(response.data)
+        this.$router.push("/prints")
+      })
     },
     getBooks() {
       console.log("getting books")
