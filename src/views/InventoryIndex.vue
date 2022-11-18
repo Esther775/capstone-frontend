@@ -6,7 +6,9 @@ export default {
     return {
       message: "Welcome Invneotry.js!",
       inventories: [],
-      warehouses: []
+      warehouses: [],
+      currentSort: 'name',
+      currentSortDir: 'asc',
     };
   },
   created: function () {
@@ -15,7 +17,7 @@ export default {
   },
   methods: {
     showInventory() {
-      console.log("showing inventory")
+      console.log(" inventory index ")
       axios.get("http://localhost:3000/inventory.json").then(response => {
         console.log(response.data)
         this.inventories = response.data
@@ -28,9 +30,37 @@ export default {
         this.warehouses = response.data
 
       })
-    }
+    },
+    // filterBooks() {
+    //   this.inventories.filter(inventory => {
+    //     return inventory.title.includes("Time");
+    //   })
+    // }
 
+    sort: function (s) {
+      //if s == current sort, reverse
+      (console.log('sorting'))
+      console.log(this.currentSort)
+      console.log(this.currentSortDir)
+
+      if (s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
+      }
+      this.currentSort = s;
+    },
   },
+  computed: {
+    sortedBooks: function () {
+      return this.inventories.sort((a, b) => {
+        let modifier = 1;
+        if (this.currentSortDir === 'desc') modifier = -1;
+        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      })
+
+    }
+  }
 };
 </script>
 
@@ -38,18 +68,16 @@ export default {
   <table class="table table-sm table-hover">
     <thead>
       <tr>
-        <th scope="col">Book Title</th>
-        <th scope="col">Warehouse</th>
-        <th scope="col">Inventory</th>
+        <th scope="col" v-on:click="sort('book_id')"> <u>Book Title</u></th>
+        <th scope="col" v-on:click="sort('warehouse_id')"> <u>Warehouse </u></th>
+        <th scope="col" v-on:click="sort('current_inventory')"> <u> Inventory </u> </th>
       </tr>
     </thead>
     <tbody>
-
-      <tr v-for="details in inventories">
-        <th scope="row">{{details.title.title}}</th>
-
-        <td>{{details.warehouse.name}}</td>
-        <td>{{details.current_inventory}}</td>
+      <tr v-for="details in sortedBooks">
+        <th scope="row">{{ details.title.title }}</th>
+        <td>{{ details.warehouse.name }}</td>
+        <td>{{ details.current_inventory }}</td>
       </tr>
 
     </tbody>

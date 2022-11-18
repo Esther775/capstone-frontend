@@ -9,6 +9,7 @@ import InventoryShow from '../views/InventoryShow.vue'
 import InventoryIndex from '../views/InventoryIndex.vue'
 import PrintCreate from '../views/PrintCreate.vue'
 import PrintIndex from '../views/PrintIndex.vue'
+import PrintEdit from '../views/PrintEdit.vue'
 
 
 const routes = [
@@ -63,6 +64,11 @@ const routes = [
     path: '/prints',
     name: 'Print Index',
     component: PrintIndex
+  },
+  {
+    path: '/prints/:id/edit',
+    name: 'Print Edit',
+    component: PrintEdit
   }
 ]
 

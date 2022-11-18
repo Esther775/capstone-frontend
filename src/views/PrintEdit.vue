@@ -1,33 +1,26 @@
 <script>
 import axios from 'axios';
 
-
 export default {
   data: function () {
     return {
       message: "Welcome to Vue.js!",
-      prints: [],
-      books: [],
-      warehouses: []
+      print: [],
+      warehouses: [],
+      books: []
     };
   },
   created: function () {
-    this.getPrints()
-    this.getBooks()
+    this.showPrint()
     this.getWarehouses()
+    this.getBooks()
+
   },
   methods: {
-    getPrints() {
-      axios.get('/prints.json').then(response => {
+    showPrint() {
+      axios.get(`/prints/${this.$route.params.id}.json`).then(response => {
         console.log(response.data)
-        this.prints = response.data
-      })
-    },
-    getBooks() {
-      console.log("getting books")
-      axios.get("/books.json").then(response => {
-        console.log(response.data)
-        this.books = response.data
+        this.print = response.data
       })
     },
     getWarehouses() {
@@ -37,18 +30,21 @@ export default {
         this.warehouses = response.data
       })
     },
-    editPrint() {
-      console.log("editing print")
-    },
-    deleteShipment(print) {
-      console.log("deleting print")
-      console.log(print.id)
-      axios.delete(`http://localhost:3000/prints/${print.id}.json`).then(response => {
+    getBooks() {
+      console.log("getting books")
+      axios.get("/books.json").then(response => {
         console.log(response.data)
-        this.$router.go()
+        this.books = response.data
+      })
+    },
+    editPrint() {
+      console.log(this.print)
+      axios.patch(`/prints/${this.print.id}`, this.print).then(response => {
+        console.log(response.data)
+        this.$router.push(`/prints`)
       })
     }
-  }
+  },
 };
 </script>
 
@@ -61,35 +57,38 @@ export default {
       <div class="row gx-5 justify-content-center">
 
         <!-- Pricing card pro-->
-        <div class="col-lg-6 col-xl-4" v-for="print in prints">
+        <div class="col-lg-6 col-xl-4">
           <div class="card mb-5 mb-xl-0">
             <div class="card-body p-5">
               <div class="mb-3">
                 <span class="text-muted">ID: {{print.id}}</span>
               </div>
 
-
-              <div v-for="warehouse in warehouses">
-                <div v-if="print.warehouse_id=== warehouse.id">{{warehouse.name}}</div>
-              </div>
-
-
               <br />
-              <label>Book:</label>
-              <div v-for="book in books">
-                <div v-if="print.book_id=== book.id">{{book.title}}</div>
+              <!-- Book input-->
+
+              <div class="form-floating mb-3" id="contactForm">
+                <select v-model="print.book_id" class="form-control">
+                  <option v-for="book in books" :value="book.id"> {{book.title}} </option>
+                </select>
+                <label>Book Title</label>
               </div>
 
-              <div>
-                <label>Quantity:</label>
-                {{print.quantity}}
+              <!-- Quantity input-->
+              <div class="form-floating mb-3" id="contactForm">
+                <input type="number" class="form-control" v-model="print.quantity">
+                <label>Quantity</label>
               </div>
 
-              <div class="d-grid"> <a class="btn btn-outline-primary" v-bind:href="`/prints/${print.id}/edit`">Edit</a>
+              <!-- To Warehouse input-->
+              <div class="form-floating mb-3" id="contactForm">
+                <input class="form-control" type="text" value="Israel Printhouse" readonly>
+                <label>Warehouse</label>
+
               </div>
 
-              <div class="d-grid"><a class="btn btn-outline-primary" v-on:click="deleteShipment(print)">Delete
-                </a>
+              <div class="d-grid"><button class="btn btn-outline-primary" value=sumbit
+                  v-on:click="editPrint()">Save</button>
               </div>
 
               <!-- 

@@ -24,7 +24,7 @@ export default {
   methods: {
     print() {
       console.log("creating shipment")
-      // console.log(this.newPrint)
+      console.log(this.newPrint)
       axios.post("/prints.json", this.newPrint).then(response => {
         console.log(response.data)
         this.$router.push("/prints")
@@ -74,7 +74,7 @@ export default {
             <!-- Book input-->
             <div class="form-floating mb-3" id="contactForm">
               <select v-model="newPrint.book_id" class="form-control">
-                <option v-for="book in books" :value="book.id"> {{book.title}} </option>
+                <option v-for="book in books" :value="book.id"> {{ book.title }} </option>
               </select>
               <label>Book Title</label>
             </div>
@@ -84,13 +84,14 @@ export default {
               <label>Quantity</label>
             </div>
 
-            <!-- To Warehouse input-->
+            <!-- Warehouse input -->
             <div class="form-floating mb-3" id="contactForm">
-              <input class="form-control" type="text" value="Israel Printhouse" readonly>
-              <label>Warehouse</label>
-
+              <select class="form-control" v-model="newPrint.warehouse_id">
+                <option v-for="warehouse in warehouses" :value="warehouse.id">{{ warehouse.name }}
+                </option>
+              </select>
+              <label>Where are you shipping the books TO?</label>
             </div>
-
 
             <!-- Submit Button-->
             <div class="d-grid"><button class="btn btn-primary btn-lg" value="Submit"

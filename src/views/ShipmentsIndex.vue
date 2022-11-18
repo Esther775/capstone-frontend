@@ -1,4 +1,5 @@
 <script>
+import { tsExternalModuleReference } from '@babel/types';
 import axios from 'axios';
 
 export default {
@@ -12,13 +13,18 @@ export default {
       warehouses: []
     };
   },
+  computed: {
+    tester() {
+      this.warehouses.filter(warehouse => warehouse.id)
+    }
+  },
+
   created: function () {
     this.getShipments()
     this.getBooks()
     this.getWarehouses()
   },
   methods: {
-
     getShipments() {
       axios.get("http://localhost:3000/shipments.json").then(response => {
         console.log(response.data)
@@ -47,7 +53,7 @@ export default {
         console.log(response.data)
         this.warehouses = response.data
       })
-    }
+    },
   },
 };
 </script>
@@ -69,14 +75,21 @@ export default {
               <div class="mb-3">
                 <span class="text-muted">Shipment Number: {{shipment.id}}</span>
               </div>
-              <!-- From Warehouse:
-              <template v-for="warehouse in warehouses">
-                <div v-if="warehouse.id === shipment.from_warehouse_id"> {{warehouse.name}}</div>
-              </template> -->
 
-              <div v-if="shipment.from_warehouse_id==='1'"> <b><u>From:</u></b>Mond Warehouse</div>
-              <div v-if="shipment.from_warehouse_id==='2'"><b><u>From:</u></b>Berman Warehouse</div>
-              <div v-if="shipment.from_warehouse_id==='3'"><b><u>From:</u></b>Israel Printhouse</div>
+
+              <div v-if=" shipment.from_warehouse_id==='1'"> <b><u>From:</u></b>Mond Warehouse</div>
+              <div v-if=" shipment.from_warehouse_id==='2'"><b><u>From:</u></b>Berman Warehouse</div>
+              <div v-if=" shipment.from_warehouse_id==='3'"><b><u>From:</u></b>Israel Printhouse</div>
+
+              <!-- <ul v-for="warehouse in warehouses" :key="warehouse.id">
+                <li v-if="shipment.from_warehouse_id === shipment.from_warehouse_id">
+                  {{warehouse.id}}
+                </li>
+              </ul> -->
+              <!-- <div v-for=" warehouse in warehouses">
+                <p v-if="warehouse.name===shipment.from_warehouse_id"> {{warehouse.name}}</p>
+                From: {{warehouse.name}}
+              </div> -->
 
               <br />
               <div>
