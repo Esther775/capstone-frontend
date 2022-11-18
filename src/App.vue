@@ -32,7 +32,7 @@ export default {
             <!-- <li class="nav-item"><a class="nav-link" href="/">Home</a></li> -->
             <li class="nav-item"><a class="nav-link" href="/shipment/new">New Shipment</a></li>
             <li class="nav-item"><a class="nav-link" href="/shipments">All Shipments</a></li>
-            <li class="nav-item"><a class="nav-link" href="/warehouses">Check Inventory</a></li>
+            <li class="nav-item"><a class="nav-link" href="/inventory">Check Inventory</a></li>
             <li class="nav-item"><a class="nav-link" href="/print/new">New Printing</a></li>
             <!-- <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li> -->
             <!-- <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li> -->

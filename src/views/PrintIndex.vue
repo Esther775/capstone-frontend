@@ -65,24 +65,24 @@ export default {
           <div class="card mb-5 mb-xl-0">
             <div class="card-body p-5">
               <div class="mb-3">
-                <span class="text-muted">ID: {{print.id}}</span>
+                <span class="text-muted">ID: {{ print.id }}</span>
               </div>
 
-
               <div v-for="warehouse in warehouses">
-                <div v-if="print.warehouse_id=== warehouse.id">{{warehouse.name}}</div>
+                <!-- {{warehouse.name}} -->
+                <div v-if="print.warehouse_id === warehouse.id">{{ warehouse.name }}</div>
               </div>
 
 
               <br />
               <label>Book:</label>
               <div v-for="book in books">
-                <div v-if="print.book_id=== book.id">{{book.title}}</div>
+                <div v-if="print.book_id === book.id">{{ book.title }}</div>
               </div>
 
               <div>
                 <label>Quantity:</label>
-                {{print.quantity}}
+                {{ print.quantity }}
               </div>
 
               <div class="d-grid"> <a class="btn btn-outline-primary" v-bind:href="`/prints/${print.id}/edit`">Edit</a>

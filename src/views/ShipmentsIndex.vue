@@ -1,5 +1,4 @@
 <script>
-import { tsExternalModuleReference } from '@babel/types';
 import axios from 'axios';
 
 export default {
@@ -73,13 +72,13 @@ export default {
           <div class="card mb-5 mb-xl-0">
             <div class="card-body p-5">
               <div class="mb-3">
-                <span class="text-muted">Shipment Number: {{shipment.id}}</span>
+                <span class="text-muted">Shipment Number: {{ shipment.id }}</span>
               </div>
 
 
-              <div v-if=" shipment.from_warehouse_id==='1'"> <b><u>From:</u></b>Mond Warehouse</div>
-              <div v-if=" shipment.from_warehouse_id==='2'"><b><u>From:</u></b>Berman Warehouse</div>
-              <div v-if=" shipment.from_warehouse_id==='3'"><b><u>From:</u></b>Israel Printhouse</div>
+              <div v-if="shipment.from_warehouse_id === '1'"> <b><u>From:</u></b>Mond Warehouse</div>
+              <div v-if="shipment.from_warehouse_id === '2'"><b><u>From:</u></b>Berman Warehouse</div>
+              <div v-if="shipment.from_warehouse_id === '3'"><b><u>From:</u></b>Israel Printhouse</div>
 
               <!-- <ul v-for="warehouse in warehouses" :key="warehouse.id">
                 <li v-if="shipment.from_warehouse_id === shipment.from_warehouse_id">
@@ -93,23 +92,23 @@ export default {
 
               <br />
               <div>
-                <div v-if="shipment.to_warehouse_id==='1'"><b><u>To:</u></b> Mond Warehouse</div>
-                <div v-if="shipment.to_warehouse_id==='2'"><b><u>To:</u></b> Berman Warehouse</div>
-                <div v-if="shipment.to_warehouse_id==='3'"><b><u>To:</u></b> Israel Printhouse</div>
+                <div v-if="shipment.to_warehouse_id === '1'"><b><u>To:</u></b> Mond Warehouse</div>
+                <div v-if="shipment.to_warehouse_id === '2'"><b><u>To:</u></b> Berman Warehouse</div>
+                <div v-if="shipment.to_warehouse_id === '3'"><b><u>To:</u></b> Israel Printhouse</div>
               </div>
 
               <br />
               <div v-for="books in shipment.book_shipment">
-                <b><u>Book:</u></b> {{books.book.title}}
+                <b><u>Book:</u></b> {{ books.book.title }}
                 <br />
-                <b><u>Quantity:</u></b>{{books.quantity}}
+                <b><u>Quantity:</u></b>{{ books.quantity }}
                 <br />
                 <br />
               </div>
 
               <b><u>Comment:</u></b>
               <br />
-              {{shipment.comment}}
+              {{ shipment.comment }}
 
               <div class="d-grid"><a class="btn btn-outline-primary" v-bind:href="`/shipments/${shipment.id}/edit`">Edit
                   Shipment</a></div>

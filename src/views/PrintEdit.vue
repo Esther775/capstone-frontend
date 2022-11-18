@@ -57,11 +57,11 @@ export default {
       <div class="row gx-5 justify-content-center">
 
         <!-- Pricing card pro-->
-        <div class="col-lg-6 col-xl-4">
+        <div class="col-lg-8 col-xl-6">
           <div class="card mb-5 mb-xl-0">
             <div class="card-body p-5">
               <div class="mb-3">
-                <span class="text-muted">ID: {{print.id}}</span>
+                <span class="text-muted">ID: {{ print.id }}</span>
               </div>
 
               <br />
@@ -69,7 +69,7 @@ export default {
 
               <div class="form-floating mb-3" id="contactForm">
                 <select v-model="print.book_id" class="form-control">
-                  <option v-for="book in books" :value="book.id"> {{book.title}} </option>
+                  <option v-for="book in books" :value="book.id"> {{ book.title }} </option>
                 </select>
                 <label>Book Title</label>
               </div>
@@ -81,12 +81,13 @@ export default {
               </div>
 
               <!-- To Warehouse input-->
-              <div class="form-floating mb-3" id="contactForm">
-                <input class="form-control" type="text" value="Israel Printhouse" readonly>
-                <label>Warehouse</label>
-
+              <div class="form-floating mb-3" id="form-control">
+                <select class="form-control" v-model="print.warehouse_id">
+                  <option v-for="warehouse in warehouses" :value="warehouse.id">{{ warehouse.name }}
+                  </option>
+                </select>
+                <label>Where are you shipping the books TO?</label>
               </div>
-
               <div class="d-grid"><button class="btn btn-outline-primary" value=sumbit
                   v-on:click="editPrint()">Save</button>
               </div>

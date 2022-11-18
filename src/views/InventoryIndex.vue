@@ -67,7 +67,7 @@ export default {
 <template>
   <table class="table table-sm table-hover">
     <thead>
-      <tr>
+      <tr class="li">
         <th scope="col" v-on:click="sort('book_id')"> <u>Book Title</u></th>
         <th scope="col" v-on:click="sort('warehouse_id')"> <u>Warehouse </u></th>
         <th scope="col" v-on:click="sort('current_inventory')"> <u> Inventory </u> </th>
@@ -85,5 +85,8 @@ export default {
 </template>
 
 <style>
-
+.li {
+  cursor: pointer;
+  margin: 15px 0;
+}
 </style>
